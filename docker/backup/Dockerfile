@@ -1,23 +1,18 @@
-# Dockerfile pentru imaginea scriptului de backup Python.
 FROM python:3.10-slim
 
 WORKDIR /app
 
-# Copiem fișierele din scripts/
-COPY scripts/backup.py .
-COPY scripts/backups/ backups/
-COPY scripts/logs/ logs/
+COPY ../../scripts/backup.py ./
+COPY ../../requirements.txt ./
 
-# Dacă ai requirements.txt
-COPY scripts/requirements.txt .
+# Instalăm compilatorul și librăriile necesare
+RUN apt-get update && apt-get install -y gcc python3-dev
+
+# Instalăm pachetele Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Setăm variabilele de mediu
 ENV INTERVAL_BACKUP=5
 ENV BACKUP_FOLDER=./backups
-ENV LOG_FOLDER=./logs
-
-# Asigurăm existența directoarelor
-RUN mkdir -p $BACKUP_FOLDER $LOG_FOLDER
+ENV LOG_FOLDER=./logs/system-state.log
 
 CMD ["python3", "backup.py"]
