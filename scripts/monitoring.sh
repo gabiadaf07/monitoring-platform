@@ -4,7 +4,7 @@
 INTERVAL="${INTERVAL:-5}"
 
 # Directorul de backup (relativ la root-ul proiectului)
-BACKUP_DIR="./logs"
+BACKUP_DIR="/home/admin0103/source/monitoring-platform/scripts/logs"
 LOG_FILE="$BACKUP_DIR/system-state.log"
 
 # Verificăm dacă directorul de loguri există
@@ -25,19 +25,37 @@ fi
 echo "=== $(date) ===" >> "$LOG_FILE"
 
 # Scrie log-urile în fișier
-{
-    echo "--- top ---"
-    top -b -n 1 | head -n 10
+while true; do
+    # Suprascrie fișierul la fiecare rulare
+    {
+        echo "=== $(date) ==="
+        echo "--- Hostname ---"
+        hostname
 
-    echo "--- lscpu ---"
-    lscpu | tail -n 10
+        echo "--- Uptime ---"
+        uptime
 
-    echo "--- fdisk ---"
-    fdisk -l
+        echo "--- CPU Usage ---"
+        top -b -n 1 | head -n 10
 
-    echo "--- free ---"
-    free -h
+        echo "--- Memory Usage ---"
+        free -h
 
-    echo "--- Temperatura CPU ---"
-    sensors
-} >> "$LOG_FILE"
+        echo "--- Disk Usage ---"
+        df -h
+
+        echo "--- Active Processes ---"
+        ps -e --no-headers | wc -l
+
+        echo "--- CPU Info ---"
+        lscpu | tail -n 10
+
+        echo "--- Disk Info ---"
+        fdisk -l
+
+        echo "--- CPU Temperature ---"
+        sensors
+    } > "$LOG_FILE"
+
+    sleep "$INTERVAL"
+done

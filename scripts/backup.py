@@ -29,6 +29,8 @@ def back_up_fisier():
     formatted_time = mtime_datetime.strftime("%Y-%m-%d %H:%M")
     print(f"Fișierul a fost modificat la: {formatted_time}")
 
+    current_hash = get_hash_file("/home/admin0103/source/monitoring-platform/scripts/logs/system-state.log")
+    future_hash = get_hash_file("/home/admin0103/source/monitoring-platform/scripts/logs/system-state.log")
 
     
     last_mtime = 0
@@ -36,7 +38,7 @@ def back_up_fisier():
         with open(state_file, 'r') as f:
             last_mtime = float(f.read())
 
-    if current_mtime != last_mtime:
+    if current_mtime != last_mtime and current_hash != future_hash:
         timestamp = mtime_datetime.strftime("%Y%m%d_%H%M")
         backup_filename = f"monitoring_backup_{timestamp}.txt"
         backup_path = os.path.join(backup_dir, backup_filename)
