@@ -1,1 +1,53 @@
 # Puneti aici tot ce aveti nevoie pentru deployment (Namespace, pods, volumes, etc)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-platform
+  namespace: monitoring
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: monitoring-platform
+  template:
+    metadata:
+      labels:
+        app: monitoring-platform
+    spec:
+      containers:
+        - name: backup
+          image: local/backup:latest
+          imagePullPolicy: Never
+          env:
+            - name: INTERVAL_BACKUP
+              value: "5"
+            - name: LOG_FOLDER
+              value: "/logs/system-state.log"
+            - name: BACKUP_FOLDER
+              value: "/backups"
+          volumeMounts:
+            - name: logs-volume
+              mountPath: /logs
+            - name: backups-volume
+              mountPath: /backups
+        
+        - name: monitoring
+          image: local/monitoring:latest
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: logs-volume
+              mountPath: /logs
+            - name: backups-volume
+              mountPath: /backups
+        - name: nginx
+          image: nginx:latest
+          volumeMounts:
+            - name: logs-volume
+              mountPath: /usr/share/nginx/html/logs
+      volumes:
+        - name: logs-volume
+          emptyDir: {}
+        - name: backups-volume
+          emptyDir: {}
+        
+          
