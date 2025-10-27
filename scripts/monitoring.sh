@@ -4,8 +4,11 @@
 INTERVAL="${INTERVAL:-5}"
 
 # Directorul de backup (relativ la root-ul proiectului)
-BACKUP_DIR="/home/admin0103/source/monitoring-platform/scripts/logs"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKUP_DIR="$SCRIPT_DIR/logs"
+
 LOG_FILE="$BACKUP_DIR/system-state.log"
+LOG_HTML="$BACKUP_DIR/monitoring.html"
 
 # Verificăm dacă directorul de loguri există
 if [ ! -d "$BACKUP_DIR" ]; then
@@ -56,6 +59,15 @@ while true; do
         echo "--- CPU Temperature ---"
         sensors
     } > "$LOG_FILE"
+    {
+        echo "<!DOCTYPE html>"
+        echo "<html><head><meta charset='UTF-8'><title>Monitoring Log</title></head><body><pre>"
+        cat "$LOG_FILE"
+        echo "</pre></body></html>"
+    } > "$LOG_HTML"
 
+    echo "✅ Fișierul HTML a fost generat: $LOG_HTML"
     sleep "$INTERVAL"
+    
 done
+
