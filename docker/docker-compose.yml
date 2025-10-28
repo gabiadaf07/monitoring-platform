@@ -1,12 +1,10 @@
 # Configurație pentru rularea ambelor containere Docker.
-
-version: '3.8'
-
 services:
   backup:
     build:
       context: ../
       dockerfile: docker/backup/Dockerfile
+    image: local/backup:latest
     container_name: backup_service
     volumes:
       - ../logs:/app/logs
@@ -22,6 +20,7 @@ services:
     build:
       context: ../
       dockerfile: docker/monitoring/Dockerfile
+    image: local/monitoring:latest
     container_name: monitoring_service
     depends_on:
       - backup

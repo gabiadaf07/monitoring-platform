@@ -1,4 +1,11 @@
 # Puneti aici tot ce aveti nevoie pentru deployment (Namespace, pods, volumes, etc)
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+#Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
