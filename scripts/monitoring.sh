@@ -27,9 +27,7 @@ fi
 # Adaugă data și ora în fișierul de log
 echo "=== $(date) ===" >> "$LOG_FILE"
 
-# Scrie log-urile în fișier
 while true; do
-    # Suprascrie fișierul la fiecare rulare
     {
         echo "=== $(date) ==="
         echo "--- Hostname ---"
