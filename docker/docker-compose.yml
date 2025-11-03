@@ -2,8 +2,8 @@
 services:
   backup:
     build:
-      context: ../
-      dockerfile: docker/backup/Dockerfile
+      context: .
+      dockerfile: backup/Dockerfile
     image: local/backup:latest
     container_name: backup_service
     volumes:
@@ -18,8 +18,8 @@ services:
 
   monitoring:
     build:
-      context: ../
-      dockerfile: docker/monitoring/Dockerfile
+      context: .
+      dockerfile: monitoring/Dockerfile
     image: local/monitoring:latest
     container_name: monitoring_service
     depends_on:

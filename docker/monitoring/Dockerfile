@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 
 WORKDIR /app
 
-COPY ../../scripts/monitoring.sh ./
+COPY scripts/monitoring.sh ./
 
 RUN chmod +x monitoring.sh
 

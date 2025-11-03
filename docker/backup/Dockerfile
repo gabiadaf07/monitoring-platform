@@ -2,14 +2,15 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY ../../scripts/backup.py ./
-COPY ../../requirements.txt ./
+COPY requirements.txt ./
+COPY scripts/backup.py ./
+
 
 # Instalăm compilatorul și librăriile necesare
 RUN apt-get update && apt-get install -y gcc python3-dev
 
 # Instalăm pachetele Python
-RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt
 
 ENV INTERVAL_BACKUP=5
 ENV BACKUP_FOLDER=./backups

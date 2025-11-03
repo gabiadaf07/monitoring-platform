@@ -12,3 +12,9 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+
+
+# echo Hello World in fisierul txt - job 1 
+# cat  - > Hello World
+# append Bye Bye world in acelasi fisier txt- job 2
+# cat 
