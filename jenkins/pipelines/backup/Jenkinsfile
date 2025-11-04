@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'gabiadaf07/backup:latest'
-        DOCKER_CONFIG = "${WORKSPACE}/docker"
+        DOCKER_CREDENTIALS_ID = 'credentiale-dockerhub'
     }
 
     stages {

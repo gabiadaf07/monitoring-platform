@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'gabiadaf07/monitoring:latest'
-        DOCKER_CONFIG = "${WORKSPACE}/docker"
+        DOCKER_CREDENTIALS_ID = 'credentiale-dockerhub'
     }
 
     stages {
@@ -21,7 +21,12 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                sh 'docker push $DOCKER_IMAGE'
+                withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker push $DOCKER_IMAGE
+                    '''
+                }
             }
         }
 
