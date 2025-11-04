@@ -1,1 +1,34 @@
-# Pipeline Jenkins pentru CI/CD al scriptului Python.
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'gabiadaf07/monitoring:latest'
+        DOCKER_CONFIG = "${WORKSPACE}/docker"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE -f docker/monitoring/Dockerfile .'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                sh 'docker push $DOCKER_IMAGE'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'docker-compose -f docker-compose.yml up -d'
+            }
+        }
+    }
+}
