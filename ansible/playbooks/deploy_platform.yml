@@ -1,1 +1,59 @@
-# Playbook Ansible pentru rularea platformei Docker folosind docker-compose.
+- name: Run Docker Compose on remote VM
+  hosts: dockerhost
+  become: true
+  tasks:
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Copy entire docker folder to remote
+      copy:
+        src: ../../docker/
+        dest: /home/eu/docker/
+        owner: eu
+        group: docker
+        mode: '0755'
+
+    - name: Ensure /home/eu/docker/scripts folder exists
+      file:
+        path: /home/eu/docker/scripts
+        state: directory
+        owner: eu
+        group: docker
+        mode: '0755'
+
+    - name: Copy backup.py script to remote
+      copy:
+        src: ../../scripts/backup.py
+        dest: /home/eu/docker/scripts/backup.py
+        owner: eu
+        group: docker
+        mode: '0644'
+    - name: Copy monitoring.sh script to remote
+      copy:
+        src: ../../scripts/monitoring.sh
+        dest: /home/eu/docker/scripts/monitoring.sh
+        owner: eu
+        group: docker
+        mode: '0755'
+
+
+    - name: Copy requirements.txt to remote
+      copy:
+        src: ../../requirements.txt
+        dest: /home/eu/docker/requirements.txt
+        owner: eu
+        group: docker
+        mode: '0644'
+
+    - name: Remove existing backup_service container if present
+      command: docker rm -f backup_service
+      ignore_errors: true
+
+    - name: Run docker-compose from inside docker folder
+      command: docker-compose -f docker-compose.yml up -d
+      args:
+        chdir: /home/eu/docker
+

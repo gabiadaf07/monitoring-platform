@@ -1,1 +1,35 @@
 # Configurație pentru rularea ambelor containere Docker.
+services:
+  backup:
+    build:
+      context: .
+      dockerfile: backup/Dockerfile
+    image: local/backup:latest
+    container_name: backup_service
+    volumes:
+      - ../logs:/app/logs
+      - ../backups:/app/backups
+    environment:
+      - INTERVAL_BACKUP=5
+      - LOG_FOLDER=./logs/system-state.log
+      - BACKUP_FOLDER=./backups
+    networks:
+      - monitoring_net
+
+  monitoring:
+    build:
+      context: .
+      dockerfile: monitoring/Dockerfile
+    image: local/monitoring:latest
+    container_name: monitoring_service
+    depends_on:
+      - backup
+    volumes:
+      - ../logs:/app/logs
+      - ../backups:/app/backups
+    networks:
+      - monitoring_net
+
+networks:
+  monitoring_net:
+    driver: bridge

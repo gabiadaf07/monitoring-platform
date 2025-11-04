@@ -1,31 +1,71 @@
 #!/bin/bash
 
-#Setam variabila de mediu cu valoare implicita
+# Setăm variabila de mediu cu valoare implicită
 INTERVAL="${INTERVAL:-5}"
 
-# Fișierul în care se salvează log-urile
-LOG_FILE="/home/admin0103/source/logs/system-state.log"
-echo "Log salvat in: $LOG_FILE"
+# Directorul de backup (relativ la root-ul proiectului)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKUP_DIR="$SCRIPT_DIR/logs"
 
-# Adaugă data și ora
+LOG_FILE="$BACKUP_DIR/system-state.log"
+LOG_HTML="$BACKUP_DIR/monitoring.html"
+
+# Verificăm dacă directorul de loguri există
+if [ ! -d "$BACKUP_DIR" ]; then
+    echo "Directorul $BACKUP_DIR nu există. Se creează..."
+    mkdir -p "$BACKUP_DIR"
+    if [ $? -eq 0 ]; then
+        echo "Directorul a fost creat cu succes."
+    else
+        echo "Eroare la crearea directorului $BACKUP_DIR."
+        exit 1
+    fi
+else
+    echo "Logul va fi salvat în: $LOG_FILE"
+fi
+
+# Adaugă data și ora în fișierul de log
 echo "=== $(date) ===" >> "$LOG_FILE"
 
-# Scrie log-urile în fișier
-{
-    echo "--- top ---"
-    top -b -n 1 | head -n 10
+while true; do
+    {
+        echo "=== $(date) ==="
+        echo "--- Hostname ---"
+        hostname
 
-    echo "--- lscpu ---"
-    lscpu | tail -n 10
+        echo "--- Uptime ---"
+        uptime
 
-    echo "--- fdisk ---"
-    fdisk -l
+        echo "--- CPU Usage ---"
+        top -b -n 1 | head -n 10
 
-    echo "--- free ---"
-    free -h
+        echo "--- Memory Usage ---"
+        free -h
 
-    echo "--- Temperatura CPU----"
-    sensors
+        echo "--- Disk Usage ---"
+        df -h
 
-} > "$LOG_FILE"
+        echo "--- Active Processes ---"
+        ps -e --no-headers | wc -l
+
+        echo "--- CPU Info ---"
+        lscpu | tail -n 10
+
+        echo "--- Disk Info ---"
+        fdisk -l
+
+        echo "--- CPU Temperature ---"
+        sensors
+    } > "$LOG_FILE"
+    {
+        echo "<!DOCTYPE html>"
+        echo "<html><head><meta charset='UTF-8'><title>Monitoring Log</title></head><body><pre>"
+        cat "$LOG_FILE"
+        echo "</pre></body></html>"
+    } > "$LOG_HTML"
+
+    echo "✅ Fișierul HTML a fost generat: $LOG_HTML"
+    sleep "$INTERVAL"
+    
+done
 
