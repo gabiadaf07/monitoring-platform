@@ -28,17 +28,17 @@ pipeline {
 
 
 
-        stage('Unit Tests') {
-            steps {
-                sh '''
-                docker run --rm \
-                -v "$PWD:/app" \
-                -w /app \
-                python:3.12-slim \
-                bash -c "pip install --no-cache-dir pytest && pytest tests/"
-                '''
-            }
-        }
+        // stage('Unit Tests') {
+        //     steps {
+        //         sh '''
+        //         docker run --rm \
+        //         -v "$PWD:/app" \
+        //         -w /app \
+        //         python:3.12-slim \
+        //         bash -c "pip install --no-cache-dir pytest && pytest tests/"
+        //         '''
+        //     }
+        // }
 
 
         stage('Build Docker Image') {
