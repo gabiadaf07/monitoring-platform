@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh '''
                     docker run --rm \
-                    -v "/var/jenkins_home/workspace/CICD MonitoringPlatform/backup:/app" \
+                    -v "/var/jenkins_home/workspace/monitoring_platform/backup:/app" \
                     -w /app \
                     python:3.12-slim \
                     bash -c "pip install --no-cache-dir flake8 && flake8 $(find . -name '*.py')"
