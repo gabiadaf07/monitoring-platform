@@ -15,9 +15,13 @@ pipeline {
 
         stage('Lint') {
             steps {
-                docker.image('python:3.12-slim').inside {
-                    sh 'pip install flake8 && flake8 scripts/backup.py'
+                script {
+                    docker.image('python:3.12-slim').inside{
+                        sh 'pip install flake8'
+                        sh 'flake8 scripts/backup.py'
+                    }
                 }
+                
             }
         }
 
