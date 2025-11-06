@@ -20,7 +20,7 @@ pipeline {
                     -v "/var/jenkins_home/workspace/CICD MonitoringPlatform/monitoring-platform:/app" \
                     -w /app \
                     python:3.12-slim \
-                    bash -c "pip install --no-cache-dir flake8 && flake8 scripts/backup.py"
+                    bash -c "pip install --no-cache-dir flake8 && flake8 /app/scripts/backup.py"
                 '''
             }
         }
