@@ -136,6 +136,15 @@ docker logs <container_name>
 
 ## ☸️ Setup și rulare în Kubernetes
 
+    # Docker & Docker Compose
+    sudo apt install -y docker.io
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+
+    # Python (pentru scripturi)
+    sudo apt install -y python3 python3-pip
+    ```
+- [Creeare cheie SSH :] 
 ```bash
 #!/bin/bash
 set -e
