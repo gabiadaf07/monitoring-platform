@@ -1,5 +1,19 @@
 # Configurație pentru rularea ambelor containere Docker.
 services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: jenkins/Dockerfile
+    image: local/jenkins:latest
+    container_name: jenkins_service
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - monitoring_net
+
   backup:
     build:
       context: .
@@ -30,6 +44,10 @@ services:
     networks:
       - monitoring_net
 
+volumes:
+  jenkins_home:
+
 networks:
   monitoring_net:
     driver: bridge
+
