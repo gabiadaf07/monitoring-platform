@@ -171,6 +171,12 @@ kubectl get hpa -n monitoring
 
 ## 🚀 CI/CD și Automatizări (Jenkins)
 
+1. **Creare view si folder**
+```md
+![Configurare pipeline backup](imagini/view-folder.png)
+```
+
+
 ### 📦 Etape pipeline `backup`
 1. **Checkout** – preia codul din GitHub.  
 2. **Lint** – rulează `flake8` pe toate fișierele `.py`.  
@@ -185,8 +191,16 @@ environment {
     DOCKER_CREDENTIALS_ID = 'credentiale-dockerhub'
 }
 ```
-
+```md
+![Configurare pipeline backup](imagini/backup-config.png)
+```
 ---
+**Rulare blue ocean**
+```md
+![Configurare pipeline backup](imagini/blueocean_backup.png)
+```
+![Backup lista blueocean](imagini/backup-blue.png)
+
 
 ### 📊 Etape pipeline `monitoring`
 1. **Checkout** – preia codul sursă.  
@@ -201,7 +215,14 @@ environment {
     DOCKER_CREDENTIALS_ID = 'credentiale-dockerhub'
 }
 ```
-
+```md
+![Configurare pipeline backup](imagini/monitoring-config.png)
+```
+---
+**Rulare blue ocean**
+```md
+![Configurare pipeline backup](imagini/blueocean_monitoring.png)
+```
 ---
 
 ## ☁️ Terraform și AWS / LocalStack
