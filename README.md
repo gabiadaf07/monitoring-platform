@@ -300,13 +300,6 @@ terraform output
 
 ---
 
-## 📸 Documentație suplimentară
-- Includeți capturi de ecran din Jenkins Blue Ocean pentru fiecare pipeline.  
-- Prezentați cum a fost creat userul Jenkins dedicat proiectului.  
-- Dacă ați implementat și partea de Kubernetes (bonus), includeți și setup-ul Minikube.
-
----
-
 ## ✅ Concluzie
 Proiectul **Monitoring Platform** integrează:
 - Automatizare completă CI/CD prin **Jenkins**
