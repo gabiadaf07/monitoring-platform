@@ -195,12 +195,21 @@ kubectl get hpa -n monitoring
 ```bash
 minikube service nginx-service -n monitoring --url
 ```
+
+
 [!Rulare minikube](imagini/rulare-minikube.png)
+
+
 
 [In browser atasati IP-ul primit din comanda anterioara la care adaugati /logs/monitoring.html]
 [Ar trebui sa vedeti ceva similar : ]
 
+
+
 [!Log-uri updatate](imagini/monitoring-log.png)
+
+
+
 ---
 
 ## 🚀 CI/CD și Automatizări (Jenkins)
