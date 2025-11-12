@@ -197,7 +197,7 @@ minikube service nginx-service -n monitoring --url
 ```
 
 
-[!Rulare minikube](imagini/rulare-minikube.png)
+![Rulare minikube](imagini/rulare-minikube.png)
 
 
 
@@ -206,7 +206,7 @@ minikube service nginx-service -n monitoring --url
 
 
 
-[!Log-uri updatate](imagini/monitoring-log.png)
+![Log-uri updatate](imagini/monitoring-log.png)
 
 
 
