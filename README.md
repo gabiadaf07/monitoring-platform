@@ -201,7 +201,7 @@ environment {
 ```
 **Backup blue**
 ```md
-![Backup lista blueocean](imagini/backup-blue.png)
+![Backup lista blueocean](./imagini/backup-blue.png)
 ```
 
 
