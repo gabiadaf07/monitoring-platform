@@ -196,9 +196,13 @@ environment {
 ```
 ---
 **Rulare blue ocean**
-```md
+
 ![Configurare pipeline backup](imagini/blueocean_backup.png)
-```
+
+
+
+
+
 ![Backup lista blueocean](imagini/backup-blue.png)
 
 
