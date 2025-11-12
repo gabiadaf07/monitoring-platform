@@ -95,6 +95,28 @@ kubectl get nodes
 minikube stop
 minikube delete
 ```
+### Creare monitoring-service 
+
+```bash
+[Unit]
+Description=System State Monitor Script
+After=network.target
+
+[Service]
+Type=simple
+Environment="INTERVAL=5"
+ExecStart=/home/admin0103/source/monitoring-platform/scripts/monitoring.sh
+WorkingDirectory=/home/admin0103/source/monitoring-platform
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Fisierul .vim trebuie adaugat in /etc/systemd/system**
+**Modificati calea de la ExecStart si WorkingDirectory conform sistemului pe care rulati aplicatia**
+
 
 ### 🔐 Generare cheie SSH
 ```bash
@@ -241,9 +263,6 @@ environment {
 **Rulare blue ocean**
 
 ![Configurare pipeline backup](imagini/blueocean_backup.png)
-
-
-
 
 
 ![Backup lista blueocean](imagini/backup-blue.png)
