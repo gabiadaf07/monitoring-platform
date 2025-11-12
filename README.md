@@ -199,7 +199,10 @@ environment {
 ```md
 ![Configurare pipeline backup](imagini/blueocean_backup.png)
 ```
+**Backup blue**
+```md
 ![Backup lista blueocean](imagini/backup-blue.png)
+```
 
 
 ### 📊 Etape pipeline `monitoring`
