@@ -72,6 +72,29 @@ sudo apt install -y python3 python3-pip
 ```
 
 ---
+## Setup minikube
+
+```bash
+# 1. Instalează curl (dacă nu e deja instalat)
+sudo apt update && sudo apt install -y curl
+
+# 2. Descarcă Minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+# 3. Instalează Minikube
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+# 4. Pornește Minikube cu driverul Docker (dacă Docker e instalat)
+minikube start --driver=docker
+
+# 5. Verifică statusul
+minikube status
+kubectl get nodes
+
+# 6. Oprește sau șterge Minikube (opțional)
+minikube stop
+minikube delete
+```
 
 ### 🔐 Generare cheie SSH
 ```bash
@@ -144,7 +167,7 @@ docker logs <container_name>
     # Python (pentru scripturi)
     sudo apt install -y python3 python3-pip
     ```
-- [Creeare cheie SSH :] 
+
 ```bash
 #!/bin/bash
 set -e
@@ -165,6 +188,12 @@ kubectl apply -f k8s/hpa.yaml
 kubectl get pods -n monitoring
 kubectl get svc -n monitoring
 kubectl get hpa -n monitoring
+
+
+```
+**Rulare minikube**
+```bash
+minikube service nginx-service -n monitoring --url
 ```
 
 ---
@@ -191,9 +220,9 @@ environment {
     DOCKER_CREDENTIALS_ID = 'credentiale-dockerhub'
 }
 ```
-```md
+
 ![Configurare pipeline backup](imagini/backup-config.png)
-```
+
 ---
 **Rulare blue ocean**
 
@@ -219,14 +248,14 @@ environment {
     DOCKER_CREDENTIALS_ID = 'credentiale-dockerhub'
 }
 ```
-```md
+
 ![Configurare pipeline backup](imagini/monitoring-config.png)
-```
+
 ---
 **Rulare blue ocean**
-```md
+
 ![Configurare pipeline backup](imagini/blueocean_monitoring.png)
-```
+
 ---
 
 ## ☁️ Terraform și AWS / LocalStack
