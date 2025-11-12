@@ -201,8 +201,8 @@ minikube service nginx-service -n monitoring --url
 
 
 
-[In browser atasati IP-ul primit din comanda anterioara la care adaugati /logs/monitoring.html]
-[Ar trebui sa vedeti ceva similar : ]
+**In browser atasati IP-ul primit din comanda anterioara la care adaugati /logs/monitoring.html**
+**Ar trebui sa vedeti ceva similar :**
 
 
 
