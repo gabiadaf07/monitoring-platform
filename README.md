@@ -249,12 +249,13 @@ environment {
 }
 ```
 
-![Configurare pipeline backup](imagini/monitoring-config.png)
+![Configurare pipeline monitoring](imagini/monitoring-config.png)
 
+![Rulare pipeline-uri](imagini/monitoring_runs.png)
 ---
 **Rulare blue ocean**
 
-![Configurare pipeline backup](imagini/blueocean_monitoring.png)
+![Configurare pipeline monitoring](imagini/blueocean_monitoring.png)
 
 ---
 
